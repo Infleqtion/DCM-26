@@ -16,7 +16,8 @@ def build_routed_circuit(
             raise ValueError(f"The CX gate controlled by {ctrl} and targeting {trgt} does not match the grid topology.")
         ops.append(cirq.CX(qubits[ctrl], qubits[trgt]))
     ops += [cirq.H.on_each([qubits[qubit_map[k]] for k in range(10)])]
-    cirq.measure(*[qubits[qubit_map[k]] for k in range(10)])
+    ops.append(cirq.measure(*[qubits[qubit_map[k]] for k in range(10)]))
+
     return cirq.Circuit(ops)
 
 
